@@ -67,15 +67,15 @@ node {
    }
    
    stage('Playbook') {
-        sshCommand remote: remote1, command: "rm -rf ~/ansible/spring-playbook.yaml"
+        sSHLauncher remote: remote1, command: "rm -rf ~/ansible/spring-playbook.yaml"
         sshPut remote: remote1, from: 'spring-playbook.yaml', into: '/home/devopsinfra/ansible/spring-playbook.yaml'
         
-        sshCommand remote: remote2, command: "rm -rf ~/ansible/pet-playbook.yaml"
+        sSHLauncher remote: remote2, command: "rm -rf ~/ansible/pet-playbook.yaml"
         sshPut remote: remote2, from: 'spring-playbook.yaml', into: '/home/devopsinfra/ansible/spring-playbook.yaml'
     }
     stage('Run Playbook') {
-        sshCommand remote: remote1, command: "cd ~/ansible; ansible-playbook -i inventory spring-playbook.yaml"
-        sshCommand remote: remote2, command: "cd ~/ansible; ansible-playbook -i inventory spring-playbook.yaml"
+        sSHLauncher remote: remote1, command: "cd ~/ansible; ansible-playbook -i inventory spring-playbook.yaml"
+        sSHLauncher remote: remote2, command: "cd ~/ansible; ansible-playbook -i inventory spring-playbook.yaml"
     }
         
 }
