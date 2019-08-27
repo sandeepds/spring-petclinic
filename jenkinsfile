@@ -5,12 +5,12 @@ node {
    def remote1 = [:]
     remote1.host = 'xyart81442dns1.eastus2.cloudapp.azure.com'
     remote1.user = "devopsinfra"
-    remote1.password = "Husslefree12$1"
+    remote1.password = "Husslefree12&#36;1"
     remote1.allowAnyHosts = true
    def remote2 = [:]
     remote2.host = 'xyart81442dns1.eastus2.cloudapp.azure.com'
     remote2.user = "devopsinfra"
-    remote2.password = "Husslefree12$1"
+    remote2.password = "Husslefree12&#36;1"
     remote2.allowAnyHosts = true
    
    stage('Preparation') { // for display purposes
