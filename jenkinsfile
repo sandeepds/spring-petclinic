@@ -2,6 +2,16 @@ node {
    
    def mvnHome
    def server = Artifactory.server 'jforgartifactory'
+   def remote1 = [:]
+    remote1.host = 'xyart81442dns1.eastus2.cloudapp.azure.com'
+    remote1.user = "devopsinfra"
+    remote1.password = "Husslefree12$1"
+    remote1.allowAnyHosts = true
+   def remote2 = [:]
+    remote2.host = 'xyart81442dns1.eastus2.cloudapp.azure.com'
+    remote2.user = "devopsinfra"
+    remote2.password = "Husslefree12$1"
+    remote2.allowAnyHosts = true
    
    stage('Preparation') { // for display purposes
       // Get code from a GitHub repository
@@ -55,4 +65,21 @@ node {
    stage("Docker-compose"){
        sh "sudo docker-compose up -d --build"
    }
+   
+   stage('Playbook') {
+        sshCommand remote: remote1, command: "rm -rf ~/ansible/pet-playbook.yaml"
+        sshCommand remote: remote1, command: "rm -rf ~/ansible/Deployment.yaml"
+        sshPut remote: remote1, from: 'pet-playbook.yaml', into: '/home/devopsinfra/ansible/pet-playbook.yaml'
+        sshPut remote: remote1, from: 'Deployment.yaml', into: '/home/devopsinfra/ansible/Deployment.yaml'
+        
+        sshCommand remote: remote2, command: "rm -rf ~/ansible/pet-playbook.yaml"
+        sshCommand remote: remote2, command: "rm -rf ~/ansible/Deployment.yaml"
+        sshPut remote: remote2, from: 'pet-playbook.yaml', into: '/home/devopsinfra/ansible/pet-playbook.yaml'
+        sshPut remote: remote2, from: 'Deployment.yaml', into: '/home/devopsinfra/ansible/Deployment.yaml'
+    }
+    stage('Run Playbook') {
+        sshCommand remote: remote1, command: "cd ~/ansible; ansible-playbook -i inventory pet-playbook.yaml"
+        sshCommand remote: remote2, command: "cd ~/ansible; ansible-playbook -i inventory pet-playbook.yaml"
+    }
+        
 }
