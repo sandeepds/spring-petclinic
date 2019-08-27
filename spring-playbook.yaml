@@ -1,6 +1,5 @@
 hosts: REMOTE
-  sudo: yes
-
+ 
   tasks:
     - name: Pull docker image
       shell: docker pull sandeepds2002/petclinic
