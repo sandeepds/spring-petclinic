@@ -1,0 +1,12 @@
+hosts: qa
+  sudo: yes
+
+  tasks:
+    - name: Pull docker image
+      shell: docker pull nir16r/spring-petclinic:{{version}}
+
+    - name: Stop docker container
+      shell: docker rm -f spring-petclinic
+
+    - name: Run docker container
+      shell: docker run -itd -p 8080:8080 --name spring-petclinic nir16r/spring-petclinic:{{version}}
