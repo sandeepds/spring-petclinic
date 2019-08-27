@@ -1,4 +1,4 @@
-hosts: qa
+hosts: REMOTE
   sudo: yes
 
   tasks:
