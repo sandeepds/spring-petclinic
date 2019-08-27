@@ -1,4 +1,4 @@
 FROM openjdk:8
-COPY ./target/petclinic.war /opt/petclinic.war
-ENTRYPOINT java -jar /opt/petclinic.war
+COPY ./target/*.jar /opt/*.jar
+ENTRYPOINT java -jar /opt/*.jar
 EXPOSE 9090
