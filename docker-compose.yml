@@ -1,4 +1,4 @@
-version: '1'
+version: '2'
 services:
   frontend:
     image: sandeepds2002/petclinic
