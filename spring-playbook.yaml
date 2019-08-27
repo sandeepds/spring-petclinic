@@ -1,8 +1,8 @@
 hosts: REMOTE
-  tasks:
-    - name: Pull docker image
-      shell: docker pull sandeepds2002/petclinic
-    - name: Stop docker container
-      shell: docker rm -f petclinic
-    - name: Run docker container
-      shell: docker run -itd -p 8081:8080 --name petclinic sandeepds2002/petclinic
+tasks: 
+-name: Pull docker image
+shell: docker pull sandeepds2002/petclinic
+-name: Stop docker container
+shell: docker rm -f petclinic
+-name: Run docker container
+shell: docker run -itd -p 8081:8080 --name petclinic sandeepds2002/petclinic
