@@ -1,0 +1,58 @@
+node {
+   def mvnHome
+   def server = Artifactory.server 'jforgartifactory'
+   stage('Preparation') { // for display purposes
+      // Get some code from a GitHub repository
+      git 'https://github.com/sandeepds/spring-petclinic.git'
+      // Get the Maven tool.
+      // ** NOTE: This 'M3' Maven tool must be configured
+      // **       in the global configuration.           
+      mvnHome = tool 'M3'
+   }
+  //stage('Sonar Quality Analysis'){
+	//Run the sonar scan
+	//withSonarQubeEnv('sonarqube'){
+	//sh 'mvn clean package sonar:sonar'
+	//}
+   //}
+   //stage('Sonar Quality Gate') {
+	//timeout(time: 2, unit: 'MINUTES') {
+	//def qg = waitForQualityGate()
+	//if (qg.status != 'OK') {
+		//currentBuild.status='FAILURE'
+		//error "Pipeline aborted due to quality gate failure: ${qg.status}"
+		//}
+	//}
+   //}
+   stage('Build') {
+      // Run the maven build
+      withEnv(["MVN_HOME=$mvnHome"]) {
+         if (isUnix()) {
+            sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
+         } else {
+            bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+         }
+      }
+   }
+   stage('Jfrog Artifactory Upload'){
+   def uploadSpec = """ 
+   {  
+	"files": [ { "pattern": "/var/lib/jenkins/workspace/sample/target/*.war", "target": "example-repo-local" } ]  
+    }"""  
+   server.upload(uploadSpec) 
+   }
+   stage('Petclinic Docker Image') {
+   //docker.withRegistry('https://registry-1.docker.io/v2/', 'dockerhub') {
+
+       // def customImage = docker.build("petclinic")
+
+        /* Push the container to the custom Registry */
+        //customImage.push()
+    //}
+    
+	sh "sudo docker build -t sandeepds2002/petclinic ."
+	sh "sudo docker push sandeepds2002/petclinic"
+	
+    }
+   
+}
