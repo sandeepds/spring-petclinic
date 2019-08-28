@@ -1,6 +1,8 @@
 node {
    
    def mvnHome
+   def giturl = "https://github.com/sandeepds/spring-petclinic.git"
+   def repoBranch = "master" 
    def server = Artifactory.server 'jforgartifactory'
    def remote1 = [:]
     remote1.host = 'xyart81442dns1.eastus2.cloudapp.azure.com'
@@ -13,23 +15,21 @@ node {
     remote2.password = "Husslefree12&#36;1"
     remote2.allowAnyHosts = true
    
-   stage('Preparation') { // for display purposes
+   stage('Git-Checkout') { // for display purposes
       // Get code from a GitHub repository
-      git 'https://github.com/sandeepds/spring-petclinic.git'
-      // Get the Maven tool.
-      // ** NOTE: This 'M3' Maven tool must be configured
-      // **       in the global configuration.           
+      gitClone "${gitURL}","${repoBranch}"     
+      // Get the Maven tool.           
       mvnHome = tool 'M3'
    }
    
-   stage('Sonar Quality Analysis'){
+   stage('Sonarqube-scan'){
 	//Run the sonar scan
 	withSonarQubeEnv('sonarqube'){
 	        sh 'mvn clean package sonar:sonar'
 	}
    }
    
-   stage('Sonar Quality Gate') {
+   stage('Quality-Gate') {
 	timeout(time: 1, unit: 'MINUTES') {
 	def qg = waitForQualityGate()
 	  if (qg.status != 'OK') {
