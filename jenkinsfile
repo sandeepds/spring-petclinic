@@ -17,7 +17,8 @@ node {
    
    stage('Git-Checkout') { // for display purposes
       // Get code from a GitHub repository
-      gitClone "${gitURL}","${repoBranch}"     
+      #gitClone "${gitURL}","${repoBranch}"     
+      git 'https://github.com/sandeepds/spring-petclinic.git'
       // Get the Maven tool.           
       mvnHome = tool 'M3'
    }
