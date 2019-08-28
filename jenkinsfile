@@ -1,8 +1,6 @@
 node {
    
    def mvnHome
-   def giturl = "https://github.com/sandeepds/spring-petclinic.git"
-   def repoBranch = "master" 
    def server = Artifactory.server 'jforgartifactory'
    def remote1 = [:]
     remote1.host = 'xyart81442dns1.eastus2.cloudapp.azure.com'
@@ -17,7 +15,6 @@ node {
    
    stage('Git-Checkout') { // for display purposes
       // Get code from a GitHub repository
-      #gitClone "${gitURL}","${repoBranch}"     
       git 'https://github.com/sandeepds/spring-petclinic.git'
       // Get the Maven tool.           
       mvnHome = tool 'M3'
