@@ -9,7 +9,7 @@
       expose: 8080
       ports:
       - 8081:8080
-      state:  killed
+      state:  absent
       
   - name: Docker Pull and Run
     docker_container:
@@ -19,4 +19,4 @@
       expose: 8080
       ports:
       - 8081:8080
-      state:  restarted
+      state:  started
