@@ -1,5 +1,5 @@
 - hosts: client
-  become: true
+  become: yes
   
   tasks: 
   - name: Remove old docker image
