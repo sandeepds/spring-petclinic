@@ -1,6 +1,17 @@
 - hosts: client
   become: yes
   
+  tasks:
+   - name: install pip
+     apt:
+       name: python-pip
+       state: present
+
+   - name: Install prerequisites
+     apt:
+      name: ['apt-transport-https','ca-certificates','curl','gnupg2','software-properties-common']
+      state: present
+      
   tasks: 
   - name: Remove old docker image
     docker_container:
