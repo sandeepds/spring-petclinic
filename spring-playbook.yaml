@@ -1,9 +1,9 @@
 - hosts: client
-  sudo: yes 
+  become: true
   
   tasks: 
   - name: Remove old docker image
-    docker:
+    docker_container:
       image: sandeepds2002/petclinic
       name: petclinic
       expose: 8080
@@ -12,7 +12,7 @@
       state:  killed
       
   - name: Docker Pull and Run
-    docker:
+    docker_container:
       name: petclinic
       image:  sandeepds2002/petclinic
       pull: always
