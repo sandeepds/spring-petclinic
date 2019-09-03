@@ -2,16 +2,7 @@
   become: yes
   
   tasks:
-   - name: install pip
-     apt:
-       name: python-pip
-       state: present
-
-   - name: Install prerequisites
-     apt:
-      name: ['apt-transport-https','ca-certificates','curl','gnupg2','software-properties-common']
-      state: present
-      
+  
    - name: Add Docker GPG key
      apt_key: url=https://download.docker.com/linux/ubuntu/gpg
 
@@ -24,9 +15,7 @@
        name: docker-ce
        state: present
 
-   - name: install docker module
-     pip: name=docker-py
-
+  
   tasks: 
   - name: Remove old docker image
     docker_container:
