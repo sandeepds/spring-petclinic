@@ -15,5 +15,20 @@
        name: docker-ce
        state: present
 
-  
+    - name: Remove old docker image
+	command: sh docker-rmi sandeepds2002/petclinic
+	
+  - name: login to Docker hub
+	command: sh docker login --username=sandeepds2002 --email=sandeepds2002@gmail.com
+	
+  - name: Pull Docker image
+	command: sh docker image pull sandeepds2002/petclinic
+	
+  - name : Run docker image
+	command: sh docker-run sandeepds2002/petclinic
+	
+	
+	script: 
+		ansible_user: devopsinfra
+		ansible_password: Husslefree12$1
   
