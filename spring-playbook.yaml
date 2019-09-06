@@ -26,4 +26,3 @@
     
    - name : Run docker image
      command: docker-run sandeepds2002/petclinic
-	
