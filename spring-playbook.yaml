@@ -18,7 +18,7 @@
   tasks: 
   - name: Remove old docker image
     command: sh docker-rmi sandeepds2002/petclinic
-	      
+
   - name: Docker Pull
     docker_image:
       name: sandeepds2002/petclinic
