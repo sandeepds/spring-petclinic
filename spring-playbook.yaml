@@ -14,10 +14,7 @@
      apt:
        name: docker-ce
        state: present
-       
-   - name: Remove old docker image
-     command: docker-rmi sandeepds2002/petclinic
-     
+          
    - name: login to Docker hub
      command: docker login --username=sandeepds2002 --email=sandeepds2002@gmail.com
      
