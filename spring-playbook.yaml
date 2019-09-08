@@ -2,6 +2,18 @@
   become: yes
   
   tasks: 
+
+  - name: Add Docker GPG key
+     apt_key: url=https://download.docker.com/linux/ubuntu/gpg    
+  - name: Add Docker APT repository
+    apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/{{ansible_distribution|lower}} {{ansible_distribution_release}} stable
+
+   - name : install docker
+     apt:
+       name: docker-ce
+       state: present
+
     - name: Remove old docker image
       docker_container:
         image: sandeepds2002/petclinic
