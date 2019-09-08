@@ -14,21 +14,23 @@
      apt:
        name: docker-ce
        state: present
-          
+   
   tasks: 
-  - name: Remove old docker image
-    command: sh docker-rmi sandeepds2002/petclinic
-
-  - name: Docker Pull
-    docker_image:
-      name: sandeepds2002/petclinic
-      tag: latest
-
-  - name: Start a container
-    docker_container:
-      name: petclinic
-      image: sandeepds2002/petclinic
-      expose: 8080
-      ports:
-      - 8090:8080
-      state:  started
+    - name: Remove old docker image
+      docker_container:
+        image: sandeepds2002/petclinic
+        name: petclinic
+        expose: 8080
+        ports:
+        - 8081:8080
+        state:  absent
+      
+    - name: Docker Pull and Run
+      docker_container:
+        name: petclinic
+        image:  sandeepds2002/petclinic
+        pull: always
+        expose: 8080
+        ports:
+        - 8081:8080
+        state:  started
