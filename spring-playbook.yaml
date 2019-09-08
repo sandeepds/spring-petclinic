@@ -23,7 +23,7 @@
     docker_image:
       name: sandeepds2002/petclinic
       tag: latest
-   
+
   - name: Start a container
     docker_container:
       name: petclinic
