@@ -15,7 +15,7 @@
        name: docker-ce
        state: present
           
-     tasks: 
+  tasks: 
   - name: Remove old docker image
     docker_container:
       image: sandeepds2002/petclinic
